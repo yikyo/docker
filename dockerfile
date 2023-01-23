@@ -18,4 +18,4 @@ RUN curl -LO https://github.com/MetaCubeX/Clash.Meta/releases/download/${CLASH_M
     && mv clash.meta-${TARGETOS}-${TARGETARCH}-${CLASH_META_VERSION} /usr/local/bin/clash.meta \
     && chmod +x /usr/local/bin/clash.meta
 
-ENTRYPOINT ["/usr/local/bin/clash.meta", "-d", "-f", "/etc/.clash.meta.d/config.yaml"]
+ENTRYPOINT ["/usr/local/bin/clash.meta", "-d" "/etc/.clash.meta.d"]
