@@ -16,4 +16,4 @@ RUN curl -LO https://github.com/MetaCubeX/Clash.Meta/releases/download/${CLASH_M
     && mv clash.meta-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}-${CLASH_META_VERSION} /usr/local/bin/clash.meta \
     && chmod +x /usr/local/bin/clash.meta
 
-ENTRYPOINT /usr/local/bin/clash.meta, -d, $CLASH_META_CONFIG_DIRECTORY
+ENTRYPOINT /usr/local/bin/clash.meta -d $CLASH_META_CONFIG_DIRECTORY
