@@ -22,7 +22,8 @@ jobs:
       - name: Fetch release version
         run: |
           curl -sL https://api.github.com/repos/$REPO/releases/latest | \
-          jq -r '.tag_name' > $PROJECT_NAME/version.txt
+          jq -r '.tag_name' > version.txt
+        working-directory: $PROJECT_NAME
 
       - name: Check for modified files
         id: git-check
