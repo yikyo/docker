@@ -27,7 +27,7 @@ jobs:
         run: |
           curl -sL https://api.github.com/repos/$REPO/releases/latest | \
           jq -r '.tag_name' > version.txt
-        working-directory: $PROJECT_NAME
+        working-directory: "${{ env.PROJECT_NAME }}"
 
       - name: Get the number of modified files
         id: get_modified_files
