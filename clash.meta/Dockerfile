@@ -11,7 +11,7 @@ EXPOSE 7890 9090
 RUN apk add --update curl gzip \
     && rm -rf /var/cache/apk/*
 
-RUN curl -LO https://github.com/MetaCubeX/Clash.Meta/releases/download/${VERSION}/clash.meta-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}-${CLASH_META_VERSION}.gz \
+RUN curl -LO https://github.com/MetaCubeX/Clash.Meta/releases/download/${VERSION}/clash.meta-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}-${VERSION}.gz \
     && gunzip clash.meta-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}-${VERSION}.gz \
     && mv clash.meta-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}-${VERSION} /usr/local/bin/clash.meta \
     && chmod +x /usr/local/bin/clash.meta
