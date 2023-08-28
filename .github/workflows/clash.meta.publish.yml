@@ -14,14 +14,14 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
       - name: Get version
         id: version
         uses: juliangruber/read-file-action@v1
         with:
           path: "${{ env.PROJECT_NAME }}/version.txt"
-
-      - name: Check out the repo
-        uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
