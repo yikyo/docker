@@ -47,4 +47,4 @@ jobs:
             VERSION=${{ steps.version.outputs.content }}
           tags: |
             yikyo/clash.meta:latest
-            yikyo/clash.meta:${{ steps.package.outputs.content }}
+            yikyo/clash.meta:${{ steps.version.outputs.content }}
