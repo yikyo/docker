@@ -37,6 +37,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          file: ${{ env.PROJECT_NAME }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
