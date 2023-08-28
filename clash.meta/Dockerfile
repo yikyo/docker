@@ -1,4 +1,4 @@
-FROM alpine:3.17.1 
+FROM alpine:latest
 
 LABEL maintainer="yiKyo <yikyo666@gmail.com>"
 

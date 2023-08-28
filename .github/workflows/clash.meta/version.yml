@@ -1,0 +1,35 @@
+name: Get latest release version
+
+on:
+  push:
+    branches: [master]
+
+env:
+  PROJECT_NAME: clash.meta
+  REPO: MetaCubeX/Clash.Meta
+  GIT_AUTHOR_NAME: yiKyo
+  GIT_AUTHOR_EMAIL: yikyo666@gmail.com
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Fetch release version
+        run: |
+          curl -sL https://api.github.com/repos/$REPO/releases/latest | \
+          jq -r '.tag_name' > $PROJECT_NAME/version.txt
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$([ -z '`git status --porcelain`' ] && echo 'false' || echo 'true')
+
+      - name: Commit latest release version
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name $GIT_AUTHOR_NAME
+          git config --global user.email $GIT_AUTHOR_EMAIL
+          git commit -am 'New ${{ env.PROJECT_NAME }} release version'
+          git push
