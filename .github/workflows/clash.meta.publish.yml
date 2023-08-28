@@ -1,10 +1,10 @@
 name: Publish Docker Image
 
-# on:
-#   push:
-#     branches: [master]
-#     paths:
-#       - "clash.meta/version.txt"
+on:
+  push:
+    branches: [master]
+    paths:
+      - "clash.meta/version.txt"
 
 env:
   PROJECT_NAME: clash.meta
