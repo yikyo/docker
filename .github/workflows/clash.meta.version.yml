@@ -1,8 +1,12 @@
 name: Get latest release version
 
 on:
-  schedule:
-    - cron: "0 20 */7 * *"
+  push:
+    branches: [master]
+
+# on:
+#   schedule:
+#     - cron: "0 20 */7 * *"
 
 env:
   PROJECT_NAME: clash.meta
