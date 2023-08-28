@@ -2,11 +2,8 @@ name: Publish Docker Image
 
 on:
   push:
-    branches: [master]
-    paths:
-      - "clash.meta/version.txt"
-  pull_request:
-    branches: [master]
+    branches:
+      - "master"
     paths:
       - "clash.meta/version.txt"
 
