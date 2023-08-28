@@ -18,7 +18,7 @@ jobs:
         id: version
         uses: juliangruber/read-file-action@v1
         with:
-          path: $PROJECT_NAME/version.txt
+          path: "${{ env.PROJECT_NAME }}/version.txt"
 
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -44,6 +44,7 @@ jobs:
             linux/arm/v6
             linux/arm/v7
           push: true
+          args: --build-arg VERSION=${{ steps.version.outputs.content }}
           tags: |
             yikyo/clash.meta:latest
             yikyo/clash.meta:${{ steps.package.outputs.content }}
