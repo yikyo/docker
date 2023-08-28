@@ -43,7 +43,8 @@ jobs:
             linux/arm/v6
             linux/arm/v7
           push: true
-          args: --build-arg VERSION=${{ steps.version.outputs.content }}
+          build-args: |
+            VERSION=${{ steps.version.outputs.content }}
           tags: |
             yikyo/clash.meta:latest
             yikyo/clash.meta:${{ steps.package.outputs.content }}
