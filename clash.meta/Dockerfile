@@ -1,13 +1,17 @@
-FROM 1.21.0-alpine3.18 as builder
+FROM golang:1.21.0-alpine3.18 as builder
 
 ARG VERSION
 
 RUN apk add --no-cache git && \
     git clone --single-branch --depth 1 -b $VERSION https://github.com/MetaCubeX/Clash.Meta.git /clash && \
     cd /clash && \
-    go build -tags with_gvisor -ldflags "-s -w" -o clash
+    go build -tags with_gvisor -ldflags "-s -w" -o clash && \
+    mkdir /clash-config && \
+    cd /clash-config && \
+    wget -O geoip.metadb https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb && \
+    wget -O geosite.dat https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat && \
+    wget -O geoip.dat https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
 
-    
 
 FROM alpine:3.18.3
 
@@ -18,6 +22,8 @@ VOLUME ["/etc/.clash.meta.d"]
 EXPOSE 7890 9090
 
 COPY --from=builder /clash/clash /usr/local/bin/clash
+
+COPY --from=builder /clash-config /etc/.clash.meta.d
 
 RUN apk add --no-cache ca-certificates tzdata iptables && \
     chmod +x /usr/local/bin/clash
