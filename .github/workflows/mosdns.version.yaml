@@ -1,4 +1,4 @@
-name: Get latest release version
+name: [MOSDNS] - Get latest release version
 
 on:
   schedule:

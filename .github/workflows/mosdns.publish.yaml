@@ -1,4 +1,4 @@
-name: Publish Docker Image
+name: [MOSDNS] - Publish Docker Image
 
 on:
   push:
