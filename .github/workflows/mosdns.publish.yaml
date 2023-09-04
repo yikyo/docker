@@ -21,8 +21,7 @@ jobs:
         id: version
         uses: juliangruber/read-file-action@v1
         with:
-          path: version.txt
-        working-directory: "${{ env.PROJECT_NAME }}"
+          path: "${{ env.PROJECT_NAME }}/version.txt"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -39,6 +38,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          file: ${{ env.PROJECT_NAME }}/Dockerfile
           platforms: |
             linux/amd64
             linux/arm64
@@ -50,4 +50,3 @@ jobs:
           tags: |
             yikyo/mosdns:latest
             yikyo/mosdns:${{ steps.version.outputs.content }}
-        working-directory: "${{ env.PROJECT_NAME }}"
