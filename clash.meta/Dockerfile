@@ -1,11 +1,11 @@
 FROM golang:1.21.0-alpine3.18 as builder
 
-ARG VERSION
+ARG CGO_ENABLED=0 VERSION
 
 RUN apk add --no-cache git && \
     git clone --single-branch --depth 1 -b $VERSION https://github.com/MetaCubeX/Clash.Meta.git /source && \
     cd /source && \
-    go build -tags with_gvisor -ldflags "-s -w" -o clash
+    go build -tags with_gvisor -trimpath -ldflags "-s -w" -o clash
 
 
 FROM alpine:3.18.3
