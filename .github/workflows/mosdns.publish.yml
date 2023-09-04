@@ -1,0 +1,52 @@
+name: Publish Docker Image
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "mosdns/version.txt"
+
+env:
+  PROJECT_NAME: mosdns
+
+jobs:
+  main:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Get version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: version.txt
+        working-directory: "${{ env.PROJECT_NAME }}"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          platforms: |
+            linux/amd64
+            linux/arm64
+            linux/arm/v6
+            linux/arm/v7
+          push: true
+          build-args: |
+            VERSION=${{ steps.version.outputs.content }}
+          tags: |
+            yikyo/mosdns:latest
+            yikyo/mosdns:${{ steps.version.outputs.content }}
+        working-directory: "${{ env.PROJECT_NAME }}"

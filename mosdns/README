@@ -1,0 +1,11 @@
+## 项目介绍
+
+[github repo]: https://github.com/yikyo/docker/tree/master/mosdns
+
+## 如何使用
+
+默认配置目录为 `/etc/.mosdns.d` 
+
+docker run --name mosdns -d \
+    -v /path/to/config:/etc/.mosdns.d \
+    yikyo/mosdns
