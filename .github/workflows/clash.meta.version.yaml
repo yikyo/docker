@@ -3,6 +3,7 @@ name: Get latest release version
 on:
   schedule:
     - cron: "0 20 */7 * *"
+  workflow_dispatch:
 
 env:
   PROJECT_NAME: clash.meta

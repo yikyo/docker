@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths:
       - "clash.meta/version.txt"
+  workflow_dispatch:
 
 env:
   PROJECT_NAME: clash.meta
