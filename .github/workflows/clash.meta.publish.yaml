@@ -1,4 +1,4 @@
-name: [CLASH.META] - Publish Docker Image
+name: CLASH.META - Publish Docker Image
 
 on:
   push:
