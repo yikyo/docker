@@ -1,4 +1,4 @@
-FROM golang:1.21.0-alpine3.18 as builder
+FROM golang:1.20.8-alpine3.18 as builder
 
 ARG CGO_ENABLED=0 VERSION
 
@@ -9,7 +9,7 @@ RUN apk add --no-cache git && \
 
 
 
-FROM alpine:latest
+FROM alpine:3.18.3
 
 LABEL maintainer="yiKyo <yikyo666@gmail.com>"
 
