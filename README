@@ -2,7 +2,13 @@
 
 定时运行 Github Action，根据上游版本信息，自动化更新 Docker 镜像。
 
+.github/.workflows/ 目录下的 xxx.version.yml 文件，会定时访问上游版本信息，一旦发现有新版本，会更新根目录下xxx/version.txt
+
+version.txt 文件更新后，会触发 Github Action 自动化构建 Docker 镜像。
+
 ## 子项目
 
 [clash.meta]: https://github.com/yikyo/docker/tree/master/clash.meta
 [mosdns]: https://github.com/yikyo/docker/tree/master/mosdns
+
+mosdns 项目添加了 https://github.com/sbwml/luci-app-mosdns 中的几个patch, 具体请查看 https://github.com/sbwml/luci-app-mosdns/tree/v5/mosdns/patches
