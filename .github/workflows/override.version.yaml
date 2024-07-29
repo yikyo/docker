@@ -1,0 +1,39 @@
+name: OVERRIDE - Get latest release version
+
+on:
+  schedule:
+    - cron: "0 20 */7 * *"
+  workflow_dispatch:
+
+env:
+  PROJECT_NAME: override
+  REPO: linux-do/override
+  GIT_AUTHOR_NAME: yiKyo
+  GIT_AUTHOR_EMAIL: yikyo666@gmail.com
+
+jobs:
+  get-version:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.REPO_SCOPED_TOKEN }}
+
+      - name: Fetch release version
+        run: |
+          curl -sL https://api.github.com/repos/$REPO/releases/latest | \
+          jq -r '.tag_name' > version.txt
+        working-directory: "${{ env.PROJECT_NAME }}"
+
+      - name: Get the number of modified files
+        id: get_modified_files
+        run: echo "number=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Commit latest release version
+        if: steps.get_modified_files.outputs.number != 0
+        run: |
+          git config --global user.name $GIT_AUTHOR_NAME
+          git config --global user.email $GIT_AUTHOR_EMAIL
+          git commit -am 'New ${{ env.PROJECT_NAME }} release version'
+          git push
